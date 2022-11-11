@@ -1,26 +1,29 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
-const Header = (props) => {
+const Header = props => {
   return (
     <header className={'d-flex justify-between align-center p-40'}>
       <div className={'d-flex align-center'}>
         <img
-          src="/img/logo.svg"
-          alt="logo"
+          src='/img/logo.svg'
+          alt='logo'
           width={40}
           height={40}
         />
+        <Link to={'/'}>
         <div>
           <h3 className={'text-uppercase'}>REACT SNEAKERS</h3>
           <p className={'opacity-5'}>Магазин лучших кроссовок</p>
         </div>
+        </Link>
       </div>
       <ul className={'d-flex align-center'}>
         <li className={'mr-30'}>
           <img
             onClick={props.onClickCart}
-            src="/img/cart.svg"
-            alt="logo"
+            src='/img/cart.svg'
+            alt='logo'
             width={18}
             height={18}
             className={'cu-p'}
@@ -28,9 +31,19 @@ const Header = (props) => {
           <span>1205 руб.</span>
         </li>
         <li className={'d-flex align-center'}>
+          <Link to={'favorites'}>
+            <img
+              src='/img/favorite.svg'
+              alt='heart'
+              width={18}
+              height={18}
+            />
+          </Link>
+        </li>
+        <li className={'d-flex align-center'}>
           <img
-            src="/img/user.svg"
-            alt="logo"
+            src='/img/user.svg'
+            alt='logo'
             width={18}
             height={18}
           />

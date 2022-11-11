@@ -1,53 +1,80 @@
-import Card from "./components/Card/Card";
-import Header from "./components/Header/Header";
-import Cart from "./components/Cart/Cart";
-import {useEffect, useState} from "react";
+import Header from './components/Header/Header';
+import Cart from './components/Cart/Cart';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Favorites from './pages/Favorites';
 
 function App() {
   const [cartOpened, setCartOpened] = useState(false);
   const [items, setItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-
-
+  const [searchValue, setSearchValue] = useState('');
+  const [favorites, setFavorites] = useState([]);
   useEffect(() => {
-    fetch('https://60d62397943aa60017768e77.mockapi.io/items')
-      .then(res => res.json())
-      .then(data => setItems(data))
+    axios
+      .get('https://60d62397943aa60017768e77.mockapi.io/items')
+      .then(res => setItems(res.data));
+    axios
+      .get('https://60d62397943aa60017768e77.mockapi.io/favorites')
+      .then(res => setFavorites(res.data));
+    axios
+      .get('https://60d62397943aa60017768e77.mockapi.io/cart')
+      .then(res => setCartItems(res.data));
   }, []);
 
-  const onPlus = (obj) => {
+  const onPlus = obj => {
+    axios.post('https://60d62397943aa60017768e77.mockapi.io/cart', obj);
     setCartItems(prevState => [...prevState, obj]);
-  }
+  };
 
+  const addToFavorites = obj => {
+    axios.post(`https://60d62397943aa60017768e77.mockapi.io/favorites`, obj);
+    setFavorites(prevState => [...prevState, obj]);
+  };
+  const removeCartItem = id => {
+    axios.delete(`https://60d62397943aa60017768e77.mockapi.io/cart/${id}`);
+    setCartItems(prevState => prevState.filter(item => item.id !== id));
+  };
+
+  const onSearchInput = evt => {
+    setSearchValue(evt.target.value);
+  };
 
   return (
-    <div className="wrapper clear">
-      {cartOpened &&
+    <div className='wrapper clear'>
+      {cartOpened && (
         <Cart
           onCloseCart={() => setCartOpened(false)}
           cartItems={cartItems}
+          onRemove={removeCartItem}
         />
-      }
-      <Header onClickCart={() => setCartOpened(true)}/>
-      <main className="content p-40">
-        <div className={'d-flex align-center justify-between mb-40'}>
-          <h1 className={''}>Все кроссовки</h1>
-          <div className={'search-block d-flex'}>
-            <img src="/img/search.svg" alt="search"/>
-            <input placeholder={'Поиск...'} type="text"/>
-          </div>
-        </div>
-        <div className={'card__wrapper'}>
-          {items.map(item =>
-            <Card
-              title={item.title}
-              price={item.price}
-              imageUrl={item.imageUrl}
+      )}
+      <Header onClickCart={() => setCartOpened(true)} />
+      <Routes>
+        <Route
+          path={'/'}
+          element={
+            <Home
+              searchValue={searchValue}
+              onSearchInput={onSearchInput}
+              items={items}
               onPlus={onPlus}
+              addToFavorites={addToFavorites}
             />
-          )}
-        </div>
-      </main>
+          }
+        />
+        <Route
+          path={'/favorites'}
+          element={
+            <Favorites
+              items={favorites}
+              addToFavorites={addToFavorites}
+            />
+          }
+        ></Route>
+      </Routes>
     </div>
   );
 }

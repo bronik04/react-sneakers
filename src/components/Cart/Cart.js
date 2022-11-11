@@ -32,6 +32,7 @@ const Cart = (props) => {
                 className={'remove-btn'}
                 src="/img/btn-remove.svg"
                 alt="remove"
+                onClick={() => props.onRemove(item.id)}
               />
             </div>
           )}
