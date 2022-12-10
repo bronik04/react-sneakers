@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Card from '../components/Card/Card';
+import Context from '../context/context';
 
-const Home = ({
-  searchValue,
-  onSearchInput,
-  items,
-  onPlus,
-  addToFavorites,
-}) => {
+const Home = ({ onPlus, addToFavorites }) => {
+  const { items } = useContext(Context);
+  const [searchValue, setSearchValue] = useState('');
+  const onSearchInput = evt => {
+    setSearchValue(evt.target.value);
+  };
+
   return (
     <main className='content p-40'>
       <div className={'d-flex align-center justify-between mb-40'}>
         <h1>
-          {searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все кроссовки'}
+          {searchValue
+            ? `Поиск по запросу: "${searchValue}"`
+            : 'Все кроссовки'}
         </h1>
         <div className={'search-block d-flex'}>
           <img
@@ -31,9 +34,10 @@ const Home = ({
           .filter(item =>
             item.title.toUpperCase().includes(searchValue.toUpperCase()),
           )
-          .map((item, index) => (
+          .map(item => (
             <Card
-              key={index}
+              key={item._id}
+              _id={item._id}
               title={item.title}
               price={item.price}
               imageUrl={item.imageUrl}

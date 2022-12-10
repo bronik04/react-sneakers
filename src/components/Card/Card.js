@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styles from './Card.module.scss';
+import Context from '../../context/context';
 
-const Card = ({ title, price, imageUrl, onPlus, onFavorite, addedToFavatite = false }) => {
-  const [isAdded, setIsAdded] = useState(false);
+const Card = ({
+  _id,
+  title,
+  price,
+  imageUrl,
+  onPlus,
+  onFavorite,
+  addedToFavatite = false,
+}) => {
   const [isFavorite, setIsFavorite] = useState(addedToFavatite);
+  const { hasInCart } = useContext(Context);
 
   const onFavoriteClick = () => {
     setIsFavorite(!isFavorite);
     onFavorite({ title, price, imageUrl });
-  }
+  };
 
   const togglePlusClick = () => {
-    setIsAdded(!isAdded);
-    onPlus({ title, price, imageUrl });
+    onPlus({ _id, title, price, imageUrl });
   };
+
   return (
     <div className={styles.card}>
       <div className={styles.favorite}>
@@ -37,7 +46,9 @@ const Card = ({ title, price, imageUrl, onPlus, onFavorite, addedToFavatite = fa
           <b>{price}</b>
         </div>
         <img
-          src={isAdded ? './img/btn-checked.svg' : '/img/btn-plus.svg'}
+          src={
+            hasInCart(_id) ? './img/btn-checked.svg' : '/img/btn-plus.svg'
+          }
           alt='plus'
           width={32}
           height={32}

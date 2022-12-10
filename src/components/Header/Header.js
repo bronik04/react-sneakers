@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Header = props => {
   return (
@@ -12,10 +12,10 @@ const Header = props => {
           height={40}
         />
         <Link to={'/'}>
-        <div>
-          <h3 className={'text-uppercase'}>REACT SNEAKERS</h3>
-          <p className={'opacity-5'}>Магазин лучших кроссовок</p>
-        </div>
+          <div>
+            <h3 className={'text-uppercase'}>REACT SNEAKERS</h3>
+            <p className={'opacity-5'}>Магазин лучших кроссовок</p>
+          </div>
         </Link>
       </div>
       <ul className={'d-flex align-center'}>
@@ -30,8 +30,11 @@ const Header = props => {
           />
           <span>1205 руб.</span>
         </li>
-        <li className={'d-flex align-center'}>
-          <Link to={'favorites'}>
+        <li>
+          <Link
+            className={'d-flex align-center'}
+            to={'favorites'}
+          >
             <img
               src='/img/favorite.svg'
               alt='heart'
