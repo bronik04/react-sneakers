@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Context from '../../context/context';
+import {useTotalPrice} from "../../hooks/total-price";
 
 const Cart = props => {
   const { cartItems } = useContext(Context);
@@ -13,6 +14,8 @@ const Cart = props => {
       document.removeEventListener('keydown', onEscKeydown);
     };
   }, []);
+
+  const price = useTotalPrice();
 
   return (
     <>
@@ -60,11 +63,11 @@ const Cart = props => {
         <ul className={'price-list'}>
           <li className={'d-flex justify-between mb-20'}>
             <span className={'text'}>Итого:</span>
-            <b className={'price'}>21 498 руб. </b>
+            <b className={'price'}>{price} руб. </b>
           </li>
           <li className={'d-flex justify-between'}>
             <span>Налог 5%:</span>
-            <b>1074 руб.</b>
+            <b>{price * 0.05} руб.</b>
           </li>
         </ul>
         <button className={'order-btn'}>Оформить заказ</button>

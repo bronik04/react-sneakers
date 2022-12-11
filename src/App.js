@@ -14,21 +14,27 @@ function App() {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    async function getData () {
-    const resItem = await axios.get(
-      'https://636e00a4182793016f333290.mockapi.io/items',
-    );
-      setItems(resItem.data);
-    }
-    getData();
+    async function getData() {
+      const resItem = await axios.get(
+        'https://636e00a4182793016f333290.mockapi.io/items',
+      );
+      const resCart = await axios.get(
+        'https://636e00a4182793016f333290.mockapi.io/cart',
+      );
+      const resFavorites = await axios.get(
+        'https://636e00a4182793016f333290.mockapi.io/favorites',
+      );
 
-    // axios
-    //   .get('https://636e00a4182793016f333290.mockapi.io/favorites')
-    //   .then(res => setFavorites(res.data));
-    // axios
-    //   .get('https://636e00a4182793016f333290.mockapi.io/cart')
-    //   .then(res => setCartItems(res.data));
+      setItems(resItem.data);
+      setCartItems(resCart.data);
+      setFavorites(resFavorites.data);
+    }
+
+    getData();
   }, []);
+
+  console.log(items);
+
   const addToCart = obj => {
     try {
       if (cartItems.find(item => item.id === obj.id)) {
@@ -82,11 +88,7 @@ function App() {
           />
           <Route
             path={'/favorites'}
-            element={
-              <Favorites
-                addToFavorites={addToFavorites}
-              />
-            }
+            element={<Favorites addToFavorites={addToFavorites} />}
           ></Route>
         </Routes>
       </div>

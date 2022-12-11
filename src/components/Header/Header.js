@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {useTotalPrice} from "../../hooks/total-price";
 
 const Header = props => {
+  const price = useTotalPrice();
   return (
     <header className={'d-flex justify-between align-center p-40'}>
       <div className={'d-flex align-center'}>
@@ -28,7 +30,7 @@ const Header = props => {
             height={18}
             className={'cu-p'}
           />
-          <span>1205 руб.</span>
+          <span>{price} руб.</span>
         </li>
         <li>
           <Link
