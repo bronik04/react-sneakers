@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {useTotalPrice} from "../../hooks/total-price";
+import { useTotalPrice } from '../../hooks/total-price';
 
 const Header = props => {
   const price = useTotalPrice();
@@ -21,14 +21,15 @@ const Header = props => {
         </Link>
       </div>
       <ul className={'d-flex align-center'}>
-        <li className={'mr-30'}>
+        <li
+          className={'mr-30 cu-p'}
+          onClick={props.onClickCart}
+        >
           <img
-            onClick={props.onClickCart}
             src='/img/cart.svg'
             alt='logo'
             width={18}
             height={18}
-            className={'cu-p'}
           />
           <span>{price} руб.</span>
         </li>

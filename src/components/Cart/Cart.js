@@ -38,7 +38,7 @@ const Cart = props => {
         <div className='drawer__items'>
           {cartItems.map(item => (
             <div
-              key={item.id}
+              key={item._id}
               className='drawer__item mb-20'
             >
               <img
@@ -55,7 +55,7 @@ const Cart = props => {
                 className={'remove-btn'}
                 src='/img/btn-remove.svg'
                 alt='remove'
-                onClick={() => props.onRemove(item.id)}
+                onClick={() => props.onRemove(item._id)}
               />
             </div>
           ))}
