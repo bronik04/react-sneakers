@@ -3,7 +3,7 @@ import Card from '../components/Card/Card';
 import { Link } from 'react-router-dom';
 import Context from "../context/context";
 
-const Favorites = () => {
+const Favorites = ({addToFavorites}) => {
   const { favorites } = useContext(Context);
   return (
     <main className='content p-40'>

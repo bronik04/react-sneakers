@@ -16,7 +16,7 @@ const Card = ({
 
   const onFavoriteClick = () => {
     setIsFavorite(!isFavorite);
-    onFavorite({ title, price, imageUrl });
+    onFavorite({_id, title, price, imageUrl });
   };
 
   const togglePlusClick = () => {

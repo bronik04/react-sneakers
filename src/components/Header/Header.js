@@ -46,14 +46,14 @@ const Header = props => {
             />
           </Link>
         </li>
-        <li className={'d-flex align-center'}>
-          <img
-            src='/img/user.svg'
-            alt='logo'
-            width={18}
-            height={18}
-          />
-        </li>
+        {/*<li className={'d-flex align-center'}>*/}
+        {/*  <img*/}
+        {/*    src='/img/user.svg'*/}
+        {/*    alt='logo'*/}
+        {/*    width={18}*/}
+        {/*    height={18}*/}
+        {/*  />*/}
+        {/*</li>*/}
       </ul>
     </header>
   );

@@ -49,9 +49,9 @@ function App() {
   };
   const hasInCart = id => cartItems.some(item => item._id === id);
   const addToFavorites = obj => {
-    if (favorites.find(item => item.id === obj.id)) {
+    if (favorites.find(item => item._id === obj._id)) {
       setFavorites(prevState =>
-        prevState.filter(item => item.id !== obj.id),
+        prevState.filter(item => item._id !== obj._id),
       );
     } else {
       setFavorites(prevState => [...prevState, obj]);
@@ -64,7 +64,9 @@ function App() {
   };
 
   return (
-    <Context.Provider value={{ items, cartItems, favorites, hasInCart }}>
+    <Context.Provider
+      value={{ items, cartItems, favorites, hasInCart, addToFavorites }}
+    >
       <div className='wrapper clear'>
         <Header onClickCart={() => setCartOpened(true)} />
         {cartOpened && (
